@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-console-app",
+  "version": "0.0.0",
+  "description": "NodejsConsoleApp",
+  "main": "main.js",
+  "author": "",
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "eslint": "^8.56.0"
+  },
+  "eslintConfig": {},
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "license": "ISC"
+}
