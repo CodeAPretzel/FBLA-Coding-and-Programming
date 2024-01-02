@@ -1,1 +1,1 @@
-NodejsConsoleApp/node_modules/** filter=lfs diff=lfs merge=lfs -text
+ElectronForgeApp/node_modules/** filter=lfs diff=lfs merge=lfs -text

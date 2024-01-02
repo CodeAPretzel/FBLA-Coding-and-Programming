@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\NodejsConsoleApp"
+    "\\ElectronForgeApp",
+    "\\ElectronForgeApp\\src"
   ],
-  "SelectedNode": "\\NodejsConsoleApp\\index.html",
+  "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false
 }
