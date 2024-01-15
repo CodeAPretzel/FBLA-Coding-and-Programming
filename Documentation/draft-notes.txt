@@ -1,0 +1,20 @@
+About Application:
+Our desktop application is storing and processing sponsorship information
+for business individuals or FBLA chapters.
+
+Code Applications for Development:
+1. Visual Studio Code (Linux, Windows, and Mac)
+2. Visual Studio (Windows only)
+
+Code Application Framework:
+1. Electron.js
+
+Features for the Desktop Application:
+1. Notifications(?)
+2. User settings set by Admin
+3. Display settings (dark and light mode)
+
+|
+
+Workflow:
+https://app.diagrams.net/
