@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
+import installExtension, { REDUX_DEVTOOLS } from "electron-devtools-installer";
+import { RedirectHandler } from 'undici-types';
 
 // The built directory structure
 //
@@ -41,12 +43,14 @@ function createWindow() {
   }
 
   win.once('ready-to-show', () => {
+    // @ts-expect-error - Works as Intented
     win.show();
+    // @ts-expect-error - Works as Intented
     win.maximize();
   })
 
   // Open the DevTools.
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -67,4 +71,13 @@ app.on('activate', () => {
   }
 })
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+
+  [REDUX_DEVTOOLS].map((extension) => {
+    installExtension(extension)
+      .then((name: string) => console.log(`Installed extension: ${name}.`))
+      .catch((error) => console.log(`An error has occurred: ${error}.`));
+  })
+
+  createWindow();
+})
