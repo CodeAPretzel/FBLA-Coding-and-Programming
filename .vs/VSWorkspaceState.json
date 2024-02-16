@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\connectEd",
+    "\\connectEd\\electron",
+    "\\connectEd\\electron\\main"
   ],
+  "SelectedNode": "\\connectEd\\electron\\main\\index.ts",
   "PreviewInSolutionExplorer": false
 }
