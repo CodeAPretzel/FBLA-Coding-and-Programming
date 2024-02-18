@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "target": "es6",
+        "skipLibCheck": true,
+        "strict": true,
+		"baseUrl": ".",
+		"paths": {
+			"API/Objects": [ "./src/objects", "./src/objects/*" ],
+			"API/Routes": [ "./src/routes", "./src/routes/*" ],
+			"API/Models": [ "./src/models", "./src/models/*" ],
+			"API/Utils/*": [ "./src/utils/*" ],
+			"API/Middleware": [ "./src/middleware", "./src/middleware/*" ],
+			"API/Interfaces": [ "./src/interfaces", "./src/interfaces/*" ]
+		},
+		"strictPropertyInitialization": false,
+		"sourceMap": true
+    },
+	"exclude": [
+		"node_modules"
+	]
+}
