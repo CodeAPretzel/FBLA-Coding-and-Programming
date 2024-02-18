@@ -76,6 +76,8 @@ async function createWindow() {
 
 	// Apply electron-updater
 	update(win)
+
+	win.maximize();
 }
 
 app.whenReady().then(createWindow)
