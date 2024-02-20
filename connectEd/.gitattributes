@@ -1,2 +1,1 @@
-# Store node_modules in git lfs
 node_modules/** filter=lfs diff=lfs merge=lfs -text
