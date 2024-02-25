@@ -12,3 +12,9 @@ export interface ILoginUserPayload {
 	username: string;
 	password: string;
 }
+
+export interface IRegisterUserPayload {
+	email: string;
+	username: string;
+	password: string;
+}

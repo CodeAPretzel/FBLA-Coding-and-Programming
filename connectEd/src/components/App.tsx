@@ -3,9 +3,11 @@ import UpdateElectron from '@/components/update'
 import logoVite from '../assets/logo-vite.svg'
 import logoElectron from '../assets/logo-electron.svg'
 import '../styles/App.less'
+import { UserState } from '@/data/objects/state'
 
-function App() {
+export default function App() {
 	const [count, setCount] = useState(0)
+	
 	return (
 		<div className='App'>
 			<div className='logo-box'>
@@ -34,5 +36,3 @@ function App() {
 		</div>
 	)
 }
-
-export default App
