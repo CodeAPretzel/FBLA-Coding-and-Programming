@@ -1,8 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { State, UserState } from "../objects/state";
+import { State, UserState } from "data/objects/state";
 
 const getUserState = (state: State) => {
 	return state?.User;
+};
+
+const getUser = (state: UserState) => {
+	return state.currentUser;
 };
 
 const getUserToken = (state: UserState) => {
@@ -12,4 +16,9 @@ const getUserToken = (state: UserState) => {
 export const getAuthToken = createSelector(
 	getUserState,
 	getUserToken
+);
+
+export const getCurrentUser = createSelector(
+	getUserState,
+	getUser
 );

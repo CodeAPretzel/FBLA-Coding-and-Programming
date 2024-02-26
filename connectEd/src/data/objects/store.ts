@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "../reducers/user";
-import navReducer from "../reducers/navigation";
+import userReducer from "data/reducers/user";
+import navReducer from "data/reducers/navigation";
 
 const reducerMap = {
 	User: userReducer,

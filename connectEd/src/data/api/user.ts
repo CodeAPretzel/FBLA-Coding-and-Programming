@@ -1,5 +1,5 @@
-import { ILoginUserPayload, IRegisterUserPayload } from "../interfaces";
-import { Request } from "./network";
+import { ILoginUserPayload, IRegisterUserPayload } from "data/interfaces";
+import { Request } from "data/api/network";
 
 export const loginUser = (payload: ILoginUserPayload, token: string) => {
 	return Request("login", token, "POST", undefined, payload);

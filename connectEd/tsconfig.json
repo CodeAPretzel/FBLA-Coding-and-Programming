@@ -25,8 +25,8 @@
 				"src/*"
 			],
 			"components/*": [ "./src/components/*" ],
-			"data/*": [ "./src/dta" ],
-			"interfaces": [ "src/data/interfaces", "src/data/interfaces/*" ],
+			"data/*": [ "./src/data/*" ],
+			"interfaces": [ "./src/data/interfaces/", "./src/data/interfaces/*" ],
 			"styles/*": [ "./src/styles/*" ]
 		},
 	},

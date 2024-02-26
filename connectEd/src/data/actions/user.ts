@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IApiUser, ILoginUserPayload, IRegisterUserPayload } from "@/data/interfaces";
-import * as UserAPI from "../api/user"
-import { State } from "../objects/state";
-import { getAuthToken } from "../selectors/user";
+import * as UserAPI from "data/api/user"
+import { State } from "data/objects/state";
+import { getAuthToken } from "data/selectors/user";
 
 export const loginUserAsync = createAsyncThunk<IApiUser, ILoginUserPayload, { state: State }>(
 	"LOGIN_USER",

@@ -1,6 +1,6 @@
 import { createReducer, PayloadAction, ActionReducerMapBuilder, Action } from "@reduxjs/toolkit";
-import { NavigationState, Pages } from "../objects/state";
-import { setActivePage } from "../actions/navigation";
+import { NavigationState, Pages } from "data/objects/state";
+import { setActivePage } from "data/actions/navigation";
 import update from "immutability-helper";
 
 const defaultState: NavigationState = {

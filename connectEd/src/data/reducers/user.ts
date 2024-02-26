@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction, ActionReducerMapBuilder } from "@reduxjs/toolkit";
-import { UserState } from "../objects/state";
+import { UserState } from "data/objects/state";
 import { IApiUser } from "@/data/interfaces";
-import { loginUserAsync } from "../actions/user";
+import { loginUserAsync } from "data/actions/user";
 import update from "immutability-helper";
 
 const defaultState: UserState = {
