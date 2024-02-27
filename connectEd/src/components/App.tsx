@@ -5,7 +5,7 @@ import { getCurrentUser, getAuthToken } from 'data/selectors/user';
 import MainPage from 'components/main-page';
 import 'styles/App.less'
 import { Pages } from 'data/objects/state';
-import LoginPage from './login';
+import LoginPage from 'components/login';
 
 export default function App() {
 	const currentPage = useSelector(getCurrentPage);
@@ -13,20 +13,16 @@ export default function App() {
 	const authToken = useSelector(getAuthToken);
 
 	const renderMainContent = () => {
-		let content = (
-			<MainPage />
-		);
-
 		if (currentPage === Pages.LOGIN || !currentUser || !authToken) {
-			content = <LoginPage />
+			return <LoginPage />
 		}
 
-		return content;
+		return <MainPage />;
 	};
 
 	return (
 		<div className='app'>
-			
+			{ renderMainContent() }
 			<UpdateElectron />
 		</div>
 	);

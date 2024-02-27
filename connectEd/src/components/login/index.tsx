@@ -4,7 +4,11 @@ export default function LoginPage() {
 
 	return (
 		<div className="login-page">
-			Login Page
+			<form id="login-form" onSubmit={ undefined }>
+				<input />
+				<input />
+				<button type="submit">Login</button>
+			</form>
 		</div>
 	)
 }
