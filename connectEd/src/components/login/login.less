@@ -7,13 +7,41 @@
 	width: 100%;
 
 	#login-form {
+		align-items: center;
 		display: flex;
 		flex-direction: column;
 
 		input {
-			transition: all .6s ease-in-out;
+			background-color: #1a1a1a;
+			border: none;
+			border-radius: 5px;
+			box-sizing: border-box;
+			display: inline-flex;
+			transition: all .6s;
+			line-height: 1.5;
+			list-style: none;
 			margin-bottom: 10px;
+			outline: none;
+			min-width: fit-content;
+			padding: 5px 10px;
+			position: relative;
 			width: 350px;
+		}
+	}
+
+	span {
+		margin-top: 30px;
+
+		& > span {
+			color: #38b2ac;
+			cursor: pointer;
+			font-weight: bold;
+			transition: color 0.3s ease;
+			user-select: none;
+
+			&:hover {
+				color: #5bdd54;
+			}
 		}
 	}
 }

@@ -10,7 +10,7 @@ const config = readConfig();
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 userRouter.post("/register", async (req, res) => {
-	if ((req.body.name as string).length > 70 || (req.body.email as string).length > 70) {
+	if ((req.body.username as string).length > 70 || (req.body.email as string).length > 70) {
 		res.status(400).json({ message: "Character limit must be 70 or less" });
 	}
 
@@ -18,7 +18,7 @@ userRouter.post("/register", async (req, res) => {
 
 	const data = new userModel({
 		uuid: req.body.uuid ?? uuidv4(),
-		name: req.body.name,
+		username: req.body.username,
 		email: req.body.email,
 		password: hash
 	});
