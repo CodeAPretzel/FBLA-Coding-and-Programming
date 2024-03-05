@@ -36,20 +36,20 @@ userRouter.post("/register", async (req, res) => {
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 userRouter.post("/login", async (req, res) => {
-	const email = req.body.email;
+	const username = req.body.username;
 	const password = req.body.password;
-	const entry = await userModel.findOne({
-		email: email
-	});
+	const user = await userModel.findOne({
+		username
+	}, { _id: 0, __v: 0 });
 
-	if (entry) {
-		const isValid = await bcrypt.compare(password, entry.password);
+	if (user) {
+		const isValid = await bcrypt.compare(password, user.password);
 
 		if (isValid) {
-			const token = generateAccessToken(entry.username);
+			const token = generateAccessToken(user.username);
 			res.status(200).json({
 				token,
-				...entry
+				user
 			});
 		} else {
 			res.status(400).json({ error: "Invalid Password" });

@@ -4,6 +4,7 @@ export interface IApiUser {
 }
 
 export interface IUser {
+	uuid: string;
 	email: string;
 	username: string;
 }
