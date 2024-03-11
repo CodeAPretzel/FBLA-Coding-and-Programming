@@ -2,7 +2,10 @@ import { IUser } from "@/data/interfaces";
 
 export enum Pages {
 	LOGIN = "LOGIN",
-	HOME = "HOME"
+	HOME = "HOME",
+	COMPONENTS = "COMPONENTS",
+	SETTINGS = "SETTINGS",
+	HELP = "HELP"
 }
 
 export class State {
