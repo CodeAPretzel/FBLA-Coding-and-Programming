@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faFolder, faGear, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +21,7 @@ const sideNavItems: ISideNavItem[] = [
 	},
 	{
 		key: "components",
-		page: Pages.COMPONENTS,
+		page: Pages.FILES,
 		icon: faFolder
 	},
 	{

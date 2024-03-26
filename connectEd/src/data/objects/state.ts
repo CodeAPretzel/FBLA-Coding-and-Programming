@@ -3,7 +3,7 @@ import { IUser } from "@/data/interfaces";
 export enum Pages {
 	LOGIN = "LOGIN",
 	HOME = "HOME",
-	COMPONENTS = "COMPONENTS",
+	FILES = "FILES",
 	SETTINGS = "SETTINGS",
 	HELP = "HELP"
 }

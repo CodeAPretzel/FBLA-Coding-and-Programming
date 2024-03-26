@@ -4,19 +4,25 @@ import { getCurrentPage } from "@/data/selectors/navigation";
 import { Pages } from "@/data/objects/state";
 import "components/main-page/main-page.less"
 
+// Import Page Files
+import HomePage from "components/main-side-nav-pages/home/index"
+import FilesPage from "@/components/main-side-nav-pages/files/index"
+import SettingsPage from "components/main-side-nav-pages/settings/index"
+import HelpPage from "components/main-side-nav-pages/help/index"
+
 export default function MainPage() {
 	const currentPage = useSelector(getCurrentPage);
 
 	const renderPageContent = () => {
 		switch (currentPage) {
 			case Pages.HOME:
-				return <p>Home Content</p>;
-			case Pages.COMPONENTS:
-				return <p>Components Content</p>;
+				return <HomePage />;
+			case Pages.FILES:
+				return <FilesPage />;
 			case Pages.SETTINGS:
-				return <p>Settings Content</p>;
+				return <SettingsPage />;
 			case Pages.HELP:
-				return <p>Help Content</p>;
+				return <HelpPage />;
 		}
 	};
 
