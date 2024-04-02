@@ -1,8 +1,9 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
 import { release } from 'node:os'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { update } from './update'
+import { template } from './template'
 
 globalThis.__filename = fileURLToPath(import.meta.url)
 globalThis.__dirname = dirname(__filename)
@@ -77,7 +78,11 @@ async function createWindow() {
 	// Apply electron-updater
 	update(win)
 
+	// Maximize window
 	win.maximize();
+
+	// Create custom menu bar
+	Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
 
 app.whenReady().then(createWindow)

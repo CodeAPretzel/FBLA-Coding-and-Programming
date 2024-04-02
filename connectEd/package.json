@@ -1,5 +1,6 @@
 {
   "name": "connected",
+  "productName": "ConnectEd",
   "version": "1.0.0",
   "main": "dist-electron/main/index.js",
   "description": "Software for Education Personal to Access Third-Party Contacts.",

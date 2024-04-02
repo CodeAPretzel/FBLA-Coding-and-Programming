@@ -6,10 +6,34 @@
 	justify-content: center;
 	width: 100%;
 
+	#logo {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		height: 170px;
+		position: relative;
+		width: 100%;
+
+		img {
+			height: 100%;
+			position: absolute;
+			width: auto;
+		}
+
+		#logo-frame {
+			animation: rotateY 5s linear infinite;
+		}
+	}
+
 	#login-form {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+
+		#error-message {
+			color: #e94141;
+			margin-top: 20px;
+		}
 
 		input {
 			background-color: #1a1a1a;
@@ -43,5 +67,14 @@
 				color: #5bdd54;
 			}
 		}
+	}
+}
+
+// Define Keyframe for Rotating SVG
+@keyframes rotateY {
+	from {
+		transform: rotateY(0deg);
+	} to {
+		transform: rotateY(360deg);
 	}
 }

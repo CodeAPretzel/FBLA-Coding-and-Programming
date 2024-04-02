@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faFolder, faGear, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faFolder, faGear, faQuestionCircle, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage } from "@/data/selectors/navigation";
 import { setActivePage } from "@/data/actions/navigation";
@@ -15,25 +15,30 @@ interface ISideNavItem {
 
 const sideNavItems: ISideNavItem[] = [
 	{
-		key: "home",
+		key: "Home",
 		page: Pages.HOME,
 		icon: faHouse
 	},
 	{
-		key: "components",
+		key: "Components",
 		page: Pages.FILES,
 		icon: faFolder
 	},
 	{
-		key: "settings",
+		key: "Settings",
 		page: Pages.SETTINGS,
 		icon: faGear
 	},
 	{
-		key: "help",
+		key: "Help",
 		page: Pages.HELP,
 		icon: faQuestionCircle
 	},
+	{
+		key: "Logout",
+		page: Pages.LOGIN,
+		icon: faArrowLeft
+	}
 ]
 
 export function SideNav() {
@@ -50,6 +55,7 @@ export function SideNav() {
 				key={ key }
 				className={ compositeClass }
 				onClick={ () => setCurrentPage(page) }
+				title={key}
 			>
 				<FontAwesomeIcon icon={ icon } />
 			</div>
