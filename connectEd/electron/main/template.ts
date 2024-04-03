@@ -47,7 +47,7 @@ export const template: Electron.MenuItemConstructorOptions[] = [{
 			{
 				label: 'Learn More About ConnectEd',
 				click: async () => {
-					await shell.openExternal('https://example.com')
+					await shell.openExternal('https://github.com/CodeAPretzel/FBLA-Coding-and-Programming')
 				}
 			}
 		]

@@ -21,7 +21,7 @@ const sideNavItems: ISideNavItem[] = [
 	},
 	{
 		key: "Components",
-		page: Pages.FILES,
+		page: Pages.COMPONENTS,
 		icon: faFolder
 	},
 	{

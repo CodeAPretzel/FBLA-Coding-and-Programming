@@ -1,4 +1,3 @@
-import UpdateElectron from 'components/update' // Used to Update Electron
 import { useSelector } from 'react-redux';
 import { getCurrentPage } from 'data/selectors/navigation';
 import { getCurrentUser, getAuthToken } from 'data/selectors/user';
