@@ -24,7 +24,7 @@ export default function MainPage() {
 			case Pages.HELP:
 				return <HelpPage />;
 			case Pages.LOGIN:
-				return 
+				return
 		}
 	};
 
