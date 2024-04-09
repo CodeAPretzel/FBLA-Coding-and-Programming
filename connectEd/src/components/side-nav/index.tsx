@@ -66,5 +66,5 @@ export function SideNav() {
 		<div className="side-nav">
 			{ sideNavItems.map(renderSideNavItem) }
 		</div>
-	)
-}
+	);
+};

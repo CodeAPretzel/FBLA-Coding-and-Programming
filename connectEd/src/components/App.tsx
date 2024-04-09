@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import { getCurrentPage } from 'data/selectors/navigation';
 import { getCurrentUser, getAuthToken } from 'data/selectors/user';
 import MainPage from 'components/main-page';
-import 'styles/App.less'
 import { Pages } from 'data/objects/state';
 import LoginPage from 'components/login';
+import 'styles/app/App.less'
 
 export default function App() {
 	const currentPage = useSelector(getCurrentPage);

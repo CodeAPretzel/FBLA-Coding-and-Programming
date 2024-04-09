@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "components/main-side-nav-pages/components/components.less"
 
 //////////////////////////////////////////////////////////////
@@ -20,11 +20,16 @@ const componentsPage: React.FC = () => {
 	const [stateMultiOption, setStateOption] = useState<stateOption[]>([]);
 	const [selectedOption, setSelectedOption] = useState<number[]>([]);
 	const [searchFilter, setSearchFilter] = useState<string>('');
+	const [numOption, setNumOption] = useState<number>(0);
+
+	useEffect(() => {
+		setNumOption(stateMultiOption.length);
+	}, [stateMultiOption])
 
 	// Function to handle adding a new Option
 	const addOption = () => {
 		// Add to array
-		const newOptionId = stateMultiOption.length + 1
+		const newOptionId = numOption + 1
 
 		// Create a new object
 		const newOption: stateOption = {
@@ -37,6 +42,30 @@ const componentsPage: React.FC = () => {
 
 		// Add the new option to the state
 		setStateOption([...stateMultiOption, newOption])
+		setNumOption(numOption + 1);
+
+		// Update our side-nav bar
+		/*const hasVerticalScrollbar = (): boolean => {
+			return document.body.scrollHeight > window.innerHeight;
+		};
+
+		const adjustSideNavHeight = () => {
+			const sideNav = document.querySelector('.side-nav') as HTMLElement;
+			if (hasVerticalScrollbar()) {
+				const scrollbarHeight = window.innerHeight - document.body.clientHeight;
+				sideNav.style.height = `calc(100vh + 200px)`;
+			}
+			if (!hasVerticalScrollbar || stateMultiOption.filter(option => option.id < 3)) {
+				sideNav.style.height = `105vh`
+			}
+		};
+		
+		adjustSideNavHeight();
+		window.addEventListener('resize', adjustSideNavHeight);
+
+		return () => {
+			window.removeEventListener('resize', adjustSideNavHeight);
+		};*/
 	};
 
 	// Function to edit field values
@@ -49,9 +78,17 @@ const componentsPage: React.FC = () => {
 
 	// Function to delete options
 	const deleteOption = (id: number) => {
-		const updatedOption = stateMultiOption.filter(business => business.id !== id);
+		const updatedOption = stateMultiOption.filter(option => option.id !== id);
 		setStateOption(updatedOption);
-		setSelectedOption(selectedOption.filter(selectedId => selectedId !== id))
+		setSelectedOption(selectedOption.filter(selectedId => selectedId !== id));
+
+		// Re-index the IDs of the remaining options
+		updatedOption.forEach((option, index) => {
+			if (option.id !== index + 1) {
+				option.id = index + 1;
+			}
+		});
+		setNumOption(numOption - 1);
 	}
 
 	// Function to toggle/select options
@@ -69,6 +106,14 @@ const componentsPage: React.FC = () => {
 		const updatedOption = stateMultiOption.filter(option => !selectedOption.includes(option.id));
 		setStateOption(updatedOption);
 		setSelectedOption([]);
+
+		// Re-index the IDs of the remaining options
+		updatedOption.forEach((option, index) => {
+			if (option.id !== index + 1) {
+				option.id = index + 1;
+			}
+		});
+		setNumOption(numOption - 1);
 	}
 
 	// Function to handle filtering Option based on search filter
@@ -79,7 +124,7 @@ const componentsPage: React.FC = () => {
 	);
 
 	return (
-		<div>
+		<div className="components-main">
 			<h2>Businesses</h2>
 			{/* Search input */}
 			<input
@@ -143,8 +188,10 @@ const componentsPage: React.FC = () => {
 					))}
 				</tbody>
 			</table>
-			{/* Button to add a new Option */}
-			<button onClick={addOption}>Add Business</button>
+			<div className='option-button'>
+				{/* Button to add a new Option */}
+				<button onClick={addOption}>Add Business</button>
+			</div>
 			{selectedOption.length > 0 && (
 				<button onClick={deleteSelectedOption}>Delete Selected</button>
 			)}
