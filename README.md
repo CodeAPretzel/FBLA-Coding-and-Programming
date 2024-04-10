@@ -1,9 +1,22 @@
-# ConnectEd
-For the FBLA Coding and Programming Event 
+<div align = center>
+
+# - ConnectEd -
 
 <br>
 
-<div align = center>
+<p>
+  | &nbsp &nbsp &nbsp Kyle Smith &nbsp &nbsp &nbsp |
+</p>
+
+<br>
+<br>
+
+<img src="./connectEd/src/assets/icons/connected-frame-logo.svg" alt="ConnectEd" height="25%" width="25%">
+
+<br>
+<br>
+
+Click the button below to install the ConnectEd executable.
 
 <br>
 <br>
