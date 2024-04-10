@@ -16,11 +16,6 @@
 <br>
 <br>
 
-Click the button below to install the ConnectEd executable.
-
-<br>
-<br>
-
 [<kbd> <br> DOWNLOAD <br> </kbd>][KBD]
 
 
