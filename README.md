@@ -16,7 +16,11 @@
 <br>
 <br>
 
-[<kbd> <br> DOWNLOAD <br> </kbd>][KBD]
+[<kbd> <br> DOWNLOAD .EXE <br> </kbd>][KBD]
+
+<br>
+
+[<kbd> <br> GO TO DOCUMENTATION <br> </kbd>][GOTO]
 
 
 </div>
@@ -24,7 +28,7 @@
 <br>
 <br>
 
-
+<a name="documentation"></a>
 Resources used:
 - Electron Vite React Framework: https://github.com/electron-vite/electron-vite-react
 - REST-API-Framework: https://github.com/SGEhren-dev/REST-API-Framework/ 
@@ -33,6 +37,7 @@ Resources used:
 
 <!---------------------------------------------------------------------------->
 
-[KBD]: Types/KBD.md
+[KBD]: http://example.com/
+[GOTO]: #documentation
 
 <!--------------------------------------------------------------------------->
