@@ -11,13 +11,14 @@
 <br>
 <br>
 
+
+<a name="connected-download"></a>
 <img src="./connectEd/src/assets/icons/connected-frame-logo.svg" alt="ConnectEd" height="25%" width="25%">
 
 <br>
 <br>
 <br>
 
-<a name="connected-download"></a>
 [<kbd> <br> DOWNLOAD .EXE <br> </kbd>][KBD]
 
 <br>
