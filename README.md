@@ -8,11 +8,10 @@
   | &nbsp &nbsp &nbsp Kyle Smith &nbsp &nbsp &nbsp |
 </p>
 
-<br>
-<br>
-
-
 <a name="connected-download"></a>
+<br>
+<br>
+
 <img src="./connectEd/src/assets/icons/connected-frame-logo.svg" alt="ConnectEd" height="25%" width="25%">
 
 <br>
