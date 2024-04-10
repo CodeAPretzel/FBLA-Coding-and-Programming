@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import "components/main-side-nav-pages/components/components.less"
 
 //////////////////////////////////////////////////////////////
@@ -7,7 +7,7 @@ import "components/main-side-nav-pages/components/components.less"
 
 
 // Define the default type for Option data
-type stateOption = {
+type StateOption = {
 	id: number;
 	name: string;
 	type: string;
@@ -15,9 +15,11 @@ type stateOption = {
 	resources: string;
 };
 
-const componentsPage: React.FC = () => {
+const defaultHeaders: string[] = ["ID", "Name", "Type", "Contact", "Resources"];
+
+const ComponentsPage: React.FC = () => {
 	// Define state for Option and search filter
-	const [stateMultiOption, setStateOption] = useState<stateOption[]>([]);
+	const [stateMultiOption, setStateOption] = useState<StateOption[]>([]);
 	const [selectedOption, setSelectedOption] = useState<number[]>([]);
 	const [searchFilter, setSearchFilter] = useState<string>('');
 	const [numOption, setNumOption] = useState<number>(0);
@@ -32,7 +34,7 @@ const componentsPage: React.FC = () => {
 		const newOptionId = numOption + 1
 
 		// Create a new object
-		const newOption: stateOption = {
+		const newOption: StateOption = {
 			id: newOptionId,
 			name: 'New Business',
 			type: 'Type',
@@ -44,37 +46,13 @@ const componentsPage: React.FC = () => {
 		setStateOption([...stateMultiOption, newOption])
 		setNumOption(numOption + 1);
 
-		// Update our side-nav bar
-		/*const hasVerticalScrollbar = (): boolean => {
-			return document.body.scrollHeight > window.innerHeight;
-		};
-
-		const adjustSideNavHeight = () => {
-			const sideNav = document.querySelector('.side-nav') as HTMLElement;
-			if (hasVerticalScrollbar()) {
-				const scrollbarHeight = window.innerHeight - document.body.clientHeight;
-				sideNav.style.height = `calc(100vh + 200px)`;
-			}
-			if (!hasVerticalScrollbar || stateMultiOption.filter(option => option.id < 3)) {
-				sideNav.style.height = `105vh`
-			}
-		};
-		
-		adjustSideNavHeight();
-		window.addEventListener('resize', adjustSideNavHeight);
-
-		return () => {
-			window.removeEventListener('resize', adjustSideNavHeight);
-		};*/
+		/*
+		IDEA for solving bar size with window size. Make it so that only 10 business options
+		can be shown at once on a single page. Once this cap is reached, it will create a new
+		page that the user can access by a "Next" button and go to the previous page with
+		a "Previous" button. Also, create two buttons with "First" and "Last"  
+		*/ 
 	};
-
-	// Function to edit field values
-	const handleFieldChange = (id: number, field: keyof stateOption, value: string) => {
-		const updatedOption = stateMultiOption.map(
-			option => option.id === id ? { ...option, [field]: value } : option
-		);
-		setStateOption(updatedOption);
-	}
 
 	// Function to delete options
 	const deleteOption = (id: number) => {
@@ -90,16 +68,6 @@ const componentsPage: React.FC = () => {
 		});
 		setNumOption(numOption - 1);
 	}
-
-	// Function to toggle/select options
-	const toggleSelectOption = (id: number) => {
-		const isSelected = selectedOption.includes(id);
-		if (isSelected) {
-			setSelectedOption(selectedOption.filter(selectedId => selectedId !== id));
-		} else {
-			setSelectedOption([...selectedOption, id]);
-		}
-	};
 
 	// Function to delete selected options
 	const deleteSelectedOption = () => {
@@ -122,6 +90,26 @@ const componentsPage: React.FC = () => {
 			typeof value === 'string' && value.toLowerCase().includes(searchFilter.toLowerCase())
 		)
 	);
+	
+	// Function to edit field values
+	const handleFieldChange = (id: number, field: keyof StateOption, value: string) => {
+		const updatedOption = stateMultiOption.map(
+			option => option.id === id ? { ...option, [field]: value } : option
+		);
+		setStateOption(updatedOption);
+	}
+
+	// Function to toggle/select options
+	const toggleSelectOption = (id: number) => {
+		const isSelected = selectedOption.includes(id);
+		if (isSelected) {
+			setSelectedOption(selectedOption.filter(selectedId => selectedId !== id));
+		} else {
+			setSelectedOption([...selectedOption, id]);
+		}
+	};
+
+	const headers = ["ID", ...defaultHeaders, ...stateMultiOption.map(option => `Custom ${option.id}`)];
 
 	return (
 		<div className="components-main">
@@ -137,16 +125,22 @@ const componentsPage: React.FC = () => {
 			<table>
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Contact</th>
-						<th>Resources</th>
+						{headers.map((header, index) => (
+							<th key={index}>{header}</th>
+						))}
 					</tr>
 				</thead>
 				<tbody>
 					{filteredOption.map(option => (
 						<tr key={option.id}>
+							<td>
+								<button onClick={() => deleteOption(option.id)}>-</button>
+								<input 
+									type="checkbox"
+									checked={selectedOption.includes(option.id)}
+									onChange={() => toggleSelectOption(option.id)} 
+								/>
+							</td>
 							<td>{option.id}</td>
 							<td>
 								<input 
@@ -176,14 +170,6 @@ const componentsPage: React.FC = () => {
 									onChange={(e) => handleFieldChange(option.id, 'resources', e.target.value)} 
 								/>
 							</td>
-							<td>
-								<button onClick={() => deleteOption(option.id)}>Delete</button>
-								<input 
-									type="checkbox"
-									checked={selectedOption.includes(option.id)}
-									onChange={() => toggleSelectOption(option.id)} 
-								/>
-							</td>
 						</tr>
 					))}
 				</tbody>
@@ -199,4 +185,4 @@ const componentsPage: React.FC = () => {
 	);
 };
 
-export default componentsPage;
+export default ComponentsPage;
