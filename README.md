@@ -12,7 +12,7 @@
 <br>
 <br>
 
-<img src="./connectEd/src/assets/icons/connected-frame-logo.svg" alt="ConnectEd" height="25%" width="25%">
+<img src="./README-files/readme-logo.png" alt="ConnectEd" height="25%" width="25%">
 
 <br>
 <br>
