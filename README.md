@@ -10,7 +10,6 @@
 
 <a name="connected-download"></a>
 <br>
-<br>
 
 <img src="./README-files/readme-logo.png" alt="ConnectEd" height="25%" width="25%">
 
