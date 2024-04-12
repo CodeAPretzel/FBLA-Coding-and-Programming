@@ -12,17 +12,78 @@ Things to not add if running out of time: 4. and 5.
 
 // Time is 1:46:11
 
-import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { Box } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useTheme } from "@mui/material";
 import Header from "./objects/header";
 // import { tokens } from "theme"
-// import { data } from "dataFile"
+import { mockData } from "./objects/dataFile"
 
 const ComponentsPage = () => {
+	const theme = useTheme();
+	
+	const columns = [
+		{ field: "id", headerName: "ID", flex: 0.5 },
+		{
+			field: "name",
+			headerName: "Name",
+			flex: 1,
+			cellClassName: "name-column--cell",
+		},
+		{
+			field: "type",
+			headerName: "Type",
+		},
+		{
+			field: "contact",
+			headerName: "Contact",
+			flex: 1,
+		},
+		{
+			field: "email",
+			headerName: "Email",
+			flex: 1,
+		},
+		{
+			field: "address",
+			headerName: "Address",
+			flex: 1,
+		},
+	];
+
 	return (
 		<Box m={"20px"}>
-			<Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
-				<Header title={"CREATE BUSINESSES"} subtitle={"Add and Customize Businesses"} />
+			<Header title={"CREATE BUSINESSES"} subtitle={"Add and Customize Businesses"} />
+			<Box
+				m="40px 0 0 0"
+				height="75vh"
+				sx={{
+					"& .MuiDataGrid-root": {
+						border: "none",
+					},
+					"& .MuiDataGrid-cell": {
+						borderBottom: "none",
+					},
+					"& .name-column--cell": {
+						// Color
+					},
+					"& .MuiDataGrid-columnHeaders": {
+						// Background Color
+						borderBottom: "none",
+					},
+					"& .MuiDataGrid-virtualScroller": {
+						// Background Color
+					},
+					"& .MuiDataGrid-footerContainer": {
+						borderTop: "none",
+						// Background Color
+					},
+					"& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+						// Color
+					}
+				}}
+			>
+				<DataGrid rows={mockData} columns={columns} />	
 			</Box>
 		</Box>
 	);

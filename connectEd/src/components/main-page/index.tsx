@@ -5,7 +5,6 @@ import { Pages } from "@/data/objects/state";
 import "components/main-page/main-page.less"
 
 // Import Page Files
-import HomePage from "components/main-side-nav-pages/home/index"
 import FilesPage from "@/components/main-side-nav-pages/components/index"
 import SettingsPage from "components/main-side-nav-pages/settings/index"
 import HelpPage from "components/main-side-nav-pages/help/index"
@@ -15,8 +14,6 @@ export default function MainPage() {
 
 	const renderPageContent = () => {
 		switch (currentPage) {
-			case Pages.HOME:
-				return <HomePage />;
 			case Pages.COMPONENTS:
 				return <FilesPage />;
 			case Pages.SETTINGS:

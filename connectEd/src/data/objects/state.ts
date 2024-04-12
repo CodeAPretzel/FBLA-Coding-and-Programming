@@ -2,7 +2,6 @@ import { IUser } from "@/data/interfaces";
 
 export enum Pages {
 	LOGIN = "LOGIN",
-	HOME = "HOME",
 	COMPONENTS = "COMPONENTS",
 	SETTINGS = "SETTINGS",
 	HELP = "HELP"

@@ -15,11 +15,6 @@ interface ISideNavItem {
 
 const sideNavItems: ISideNavItem[] = [
 	{
-		key: "Home",
-		page: Pages.HOME,
-		icon: faHouse
-	},
-	{
 		key: "Components",
 		page: Pages.COMPONENTS,
 		icon: faFolder

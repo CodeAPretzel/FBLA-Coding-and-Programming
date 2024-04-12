@@ -23,10 +23,13 @@ release
 *.sln
 *.sw?
 
-#lockfile
+# lockfile
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# node_modules
+node_modules/**

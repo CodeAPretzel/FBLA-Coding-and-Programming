@@ -15,7 +15,7 @@ export default function LoginPage() {
 	const dispatch: AsyncDispatch = useDispatch();
 	const [ showRegister, setShowRegister ] = useState(false);
 
-	const changeCurrentPage = () => dispatch(setActivePage(Pages.HOME));
+	const changeCurrentPage = () => dispatch(setActivePage(Pages.COMPONENTS));
 	const attemptLoginUser = (payload: ILoginUserPayload) => dispatch(loginUserAsync(payload));
 	const attemptRegisterUser = (payload: IRegisterUserPayload) => dispatch(registerUserAsync(payload));
 
