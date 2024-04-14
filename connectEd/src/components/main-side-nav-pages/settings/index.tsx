@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 import Header from "components/main-side-nav-pages/object-files/header";
-import "components/main-side-nav-pages/help/help.less"
+import "components/main-side-nav-pages/help/help.less";
 
 interface NotificationProps {
 	message: string;
@@ -50,7 +50,7 @@ const SettingsPage: React.FC = () => {
 	};
 
 	const handleExportCSV = () => {
-		
+		window.open("https://drive.usercontent.google.com/u/0/uc?id=1kYSxPcjNNGUEE3czOIANFVCGdnFyzGQP&export=download", '_blank');
 	};
 
 	return (

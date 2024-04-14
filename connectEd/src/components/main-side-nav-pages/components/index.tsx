@@ -101,7 +101,12 @@ function CustomToolbar(props: EditToolbarProps) {
 				{...exportButtonBaseProps}
 				onClick={() => handleExport({ getRowsToExport: getRowsFromCurrentPage })}
 			>
-				Export
+				Export Locally
+			</Button>
+			<Button
+				{...exportButtonBaseProps}
+			>
+				Export To Server
 			</Button>
 		</GridToolbarContainer>
 	);
