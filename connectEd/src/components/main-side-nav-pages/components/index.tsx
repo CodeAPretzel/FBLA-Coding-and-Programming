@@ -1,33 +1,33 @@
 /* 
-Changes to make:
-2. Allow the user to change all data fields and column names except for ID. Check documentation: https://mui.com/x/react-data-grid/editing/
-3. Allow the user to add and remove columns and rows. Check documentation: https://mui.com/x/react-data-grid/editing/ 
-   (scroll down until you see "_action: 'delete'")
-4. Allow the user to import .csv and export to server.
-5. Allow the user to reorganize their rows and columns. Documentation is not included.
 
-Things to not add if running out of time: 4. and 5.
+Changes to make:
+4. Allow the user to export .csv to server.
+
 */
 
+/////////////////
+//   Imports   //
+/////////////////
+
 import * as React from 'react';
+import axios from 'axios';
 import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import Header from "./objects/header";
 import SaveIcon from '@mui/icons-material/Save';
-import { Box } from "@mui/material";
-import { Button } from "@mui/material";
+import { Box, Button, ButtonProps, colors, createSvgIcon } from "@mui/material";
 import { MockData } from "./objects/data-file"
 import { styled } from '@mui/material/styles';
+import { randomId } from '@mui/x-data-grid-generator';
 import {
+	gridPaginatedVisibleSortedGridRowIdsSelector,
 	DataGrid,
 	GridToolbarColumnsButton,
 	GridToolbarContainer,
 	GridToolbarDensitySelector,
-	GridToolbarExport,
 	GridToolbarFilterButton,
-	GridRowsProp,
 	GridRowModesModel,
 	GridRowModes,
 	GridColDef,
@@ -36,27 +36,95 @@ import {
 	GridRowId,
 	GridRowModel,
 	GridRowEditStopReasons,
+	GridRowsProp,
 	GridSlots,
+	GridCsvGetRowsToExportParams,
+	useGridApiContext,
+	GridCsvExportOptions,
 } from "@mui/x-data-grid";
 
-function CustomToolBar() {
+
+/////////////////
+//   Toolbar   //
+/////////////////
+
+interface EditToolbarProps {
+	setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
+	setRowModesModel: (
+		newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
+	) => void;
+}
+
+function CustomToolbar(props: EditToolbarProps) {
+	const { setRows, setRowModesModel } = props;
+
+	const ExportIcon = createSvgIcon(
+		<path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />,
+		'SaveAlt',
+	);
+
+	const handleClick = () => {
+		const id = randomId();
+		setRows((oldRows) => [...oldRows, { id, isNew: true }]);
+		setRowModesModel((oldModel) => ({
+			...oldModel,
+			[id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+		}));
+	};
+
+	const apiRef = useGridApiContext();
+
+	const handleExport = (options: GridCsvExportOptions) =>
+		apiRef.current.exportDataAsCsv(options);
+
+	const getRowsFromCurrentPage = ({ apiRef }: GridCsvGetRowsToExportParams) =>
+		gridPaginatedVisibleSortedGridRowIdsSelector(apiRef);
+
+	const exportButtonBaseProps: ButtonProps = {
+		color: 'primary',
+		size: 'small',
+		startIcon: <ExportIcon />,
+	};
+
 	return (
 		<GridToolbarContainer>
-			<GridToolbarColumnsButton />
-			<GridToolbarFilterButton />
+			<GridToolbarColumnsButton
+				slotProps={{ tooltip: { title: '' } }}
+			/>
+			<GridToolbarFilterButton
+				slotProps={{ tooltip: { title: '' } }}
+			/>
 			<GridToolbarDensitySelector
-				slotProps={{ tooltip: { title: 'Change density' } }}
+				slotProps={{ tooltip: { title: '' } }}
 			/>
+			<Button
+				color="primary"
+				startIcon={<AddIcon />}
+				onClick={handleClick}
+			>
+				Add row
+			</Button>
 			<Box sx={{ flexGrow: 1 }} />
-			<GridToolbarExport
-				slotProps={{
-					tooltip: { title: 'Export data' },
-					button: { variant: 'outlined' },
-				}}
-			/>
+			<Button
+				{...exportButtonBaseProps}
+				onClick={() => handleExport({ getRowsToExport: getRowsFromCurrentPage })}
+			>
+				Export locally
+			</Button>
+			<Button
+				{...exportButtonBaseProps}
+				//onClick={{}}
+			>
+				Export to server
+			</Button>
 		</GridToolbarContainer>
 	);
 }
+
+
+////////////////////////////
+//   Display on No Rows   //
+////////////////////////////
 
 const StyledGridOverlay = styled('div')(({ theme }) => ({
 	display: 'flex',
@@ -124,52 +192,72 @@ function CustomNoRowsOverlay() {
 					</g>
 				</g>
 			</svg>
-			<Box sx={{ mt: 1 }}>No Rows</Box>
+			<Box sx={{ mt: 1, color: '#ffffffde' }}>No Rows</Box>
 		</StyledGridOverlay>
 	);
 }
 
-interface EditToolbarProps {
-	setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
-	setRowModesModel: (
-		newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-	) => void;
-}
+
+//////////////////////////////
+//   Main Components Page   //
+//////////////////////////////
 
 const ComponentsPage = () => {
-	/*function EditToolbar(props: EditToolbarProps) {
-		const { setRows, setRowModesModel } = props;
-	
-		const handleClick = () => {
-			const id = columns.id;
-			setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-			setRowModesModel((oldModel) => ({
-				...oldModel,
-				[id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-			}));
-		};
-	
-		return (
-			<GridToolbarContainer>
-				<Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-					Add record
-				</Button>
-			</GridToolbarContainer>
-		);
-	}*/
+	const [rows, setRows] = React.useState(MockData);
+	const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 
-	const columns = [
+	const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
+		if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+			event.defaultMuiPrevented = true;
+		}
+	};
+
+	const handleEditClick = (id: GridRowId) => () => {
+		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+	};
+
+	const handleSaveClick = (id: GridRowId) => () => {
+		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+	};
+
+	const handleDeleteClick = (id: GridRowId) => () => {
+		setRows(rows.filter((row) => row.id !== id));
+	};
+
+	const handleCancelClick = (id: GridRowId) => () => {
+		setRowModesModel({
+			...rowModesModel,
+			[id]: { mode: GridRowModes.View, ignoreModifications: true },
+		});
+
+		const editedRow = rows.find((row) => row.id === id);
+		if (editedRow!.isNew) {
+			setRows(rows.filter((row) => row.id !== id));
+		}
+	};
+
+	const processRowUpdate = (newRow: GridRowModel) => {
+		const updatedRow = { ...newRow, isNew: false };
+		setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+		return updatedRow;
+	};
+
+	const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
+		setRowModesModel(newRowModesModel);
+	};
+
+	const handleKeyDown = (event) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+		}
+	};
+
+	const columns: GridColDef[] = [
 		{
-			field: "id",
-			headerName: "ID",
-			flex: 0.5,
-		},
-		/*{
-			field: 'actions',
-			type: 'actions',
-			headerName: 'Actions',
+			field: "field1",
+			type: "actions",
+			headerName: "Actions",
 			width: 100,
-			cellClassName: 'actions',
 			getActions: ({ id }) => {
 				const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -209,43 +297,127 @@ const ComponentsPage = () => {
 					/>,
 				];
 			},
-		},*/
+		},
 		{
-			field: "name",
-			headerName: "Name",
+			field: "field2",
 			flex: 1,
 			cellClassName: "name-column--cell",
 			editable: true,
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Name'}
+				</div>
+			),
 		},
 		{
-			field: "type",
-			headerName: "Type",
+			field: "field3",
 			editable: true,
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Type'}
+				</div>
+			),
 		},
 		{
 			field: "phone",
-			headerName: "Phone Number",
 			flex: 1,
 			editable: true,
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Phone Number'}
+				</div>
+			),
 		},
 		{
-			field: "email",
-			headerName: "Email",
+			field: "field4",
 			flex: 1,
 			editable: true,
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Email'}
+				</div>
+			),
 		},
 		{
-			field: "address",
-			headerName: "Address",
+			field: "field5",
 			flex: 1,
 			editable: true,
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Address'}
+				</div>
+			),
 		},
 		{
-			field: "date",
-			headerName: "Date",
+			field: "field6",
 			flex: 1,
 			editable: true,
-		}
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Resources'}
+				</div>
+			),
+		},
+		{
+			field: "field7",
+			flex: 1,
+			editable: true,
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Date'}
+				</div>
+			),
+		},
+		{
+			field: "field8",
+			flex: 1,
+			editable: true,
+			renderHeader: () => (
+				<div
+					contentEditable="true"
+					suppressContentEditableWarning
+					onKeyDown={(event) => handleKeyDown(event)}
+					style={{ minWidth: '20px', minHeight: '100%' }}
+				>
+					{'Members'}
+				</div>
+			),
+		},
 	];
 
 	return (
@@ -257,19 +429,29 @@ const ComponentsPage = () => {
 				sx={{
 					"& .MuiDataGrid-root": {
 						border: "none",
+						borderColor: "red"
+					},
+					"& .MuiToolbar-root": {
+						color: '#ffffffde',
+					},
+					"& .MuiSvgIcon-root": {
+						color: '#ffffffde',
+					},
+					"& .MuiButtonBase-root": {
 						color: "#ffffffde",
+						borderWidth: "2px"
 					},
 					"& .MuiDataGrid-cell": {
-						borderBottom: "none",
 						color: "#ffffffde",
 					},
 					"& .name-column--cell": {
-						color: "#5bdd54",
+						color: "#38b2ac",
 					},
 					"& .MuiDataGrid-columnHeaders": {
-						borderBottom: "none",
-						color: "black",
-						backgroundColor: "black",
+						color: "#ffffffde",
+					},
+					"& .MuiDataGrid-columnHeader": {
+						backgroundColor: "#1a1a1a"
 					},
 					"& .MuiDataGrid-virtualScroller": {
 						backgroundColor: "#393939",
@@ -277,21 +459,38 @@ const ComponentsPage = () => {
 					"& .MuiDataGrid-footerContainer": {
 						borderTop: "none",
 						backgroundColor: "#1a1a1a",
+						color: "#ffffffde"
 					},
 					"& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-						color: "#38b2ac",
+						color: "#ffffffde",
 					},
-					'& .MuiDataGrid-cell:hover': {
-						color: 'primary.main',
+					"& .MuiDataGrid-cell:hover": {
+						backgroundColor: "#303030",
 					},
+					"& .MuiButtonBase-root:hover": {
+						backgroundColor: "#242424"
+					},
+					"& .MuiDataGrid-root .Mui-selected": {
+						backgroundColor: "#282828"
+					},
+					"& .MuiDataGrid-row .MuiDataGrid-row--editable . MuiDataGrid-row--editing": {
+						backgroundColor: "red"
+					}
 				}}
 			>
 				<DataGrid
-					rows={MockData}
+					rows={rows}
 					columns={columns}
+					rowModesModel={rowModesModel}
+					onRowModesModelChange={handleRowModesModelChange}
+					onRowEditStop={handleRowEditStop}
+					processRowUpdate={processRowUpdate}
 					slots={{
-						toolbar: CustomToolBar,
+						toolbar: CustomToolbar as GridSlots['toolbar'],
 						noRowsOverlay: CustomNoRowsOverlay,
+					}}
+					slotProps={{
+						toolbar: { setRows, setRowModesModel },
 					}}
 				/>
 			</Box>
