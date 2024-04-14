@@ -1,10 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import { exec } from 'child_process';
+import { faFolder, faGear, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Header from "components/main-side-nav-pages/object-files/header";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const openWebsite = (url: string) => {
+	window.open(url, '_blank');
+};
 
 const HelpPage: React.FC = () => {
 	const sendEmail = () => {
@@ -13,16 +18,17 @@ const HelpPage: React.FC = () => {
 		const mailtoLink = `mailto:smithk25@marionville.us?subject=${subject}&body=${body}`;
 
 		const anchor = document.createElement('a');
-        anchor.href = mailtoLink;
-        anchor.click();
+		anchor.href = mailtoLink;
+		anchor.click();
 	};
 
 	return (
 		<Box
-			m="20px 325px 0 0"
+			m="20px 325px 0 40px"
 			sx={{
 				"& .MuiPaper-root": {
-					backgroundColor: "#393939"
+					backgroundColor: "#393939",
+					wordWrap: "break-word"
 				},
 			}}
 		>
@@ -36,13 +42,19 @@ const HelpPage: React.FC = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography color={"#ffffffde"}>
-						<div
-							style={{
-								maxWidth: "155vh", wordWrap: "break-word"
-							}}
-						>
+						First is the <FontAwesomeIcon icon={faFolder} /> page that allows you to add columns and make rows
+						for a datasheet.
 						
-						</div>
+						<br />
+						<br />
+
+						Second is the <FontAwesomeIcon icon={faGear} /> page. This is where you can modify your username,
+						password, and download you datasheet from our server.
+						
+						<br />
+						<br />
+
+						Finally is the <FontAwesomeIcon icon={faArrowLeft} /> page. This logs you out and brings you to the login page.
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
@@ -55,7 +67,14 @@ const HelpPage: React.FC = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography color={"#ffffffde"}>
-						This is the answer to the question.
+						If you're curious on how ConnectEd is built, want to see the core functions
+						that makes this application work, or what even is ConnectEd, you can view the Github repository here:
+
+						<br />
+
+						<button onClick={() => openWebsite('https://www.example.com')} style={{ margin: "20px 0 0 0" }}>
+							Go to Documentation
+						</button>
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
@@ -68,10 +87,13 @@ const HelpPage: React.FC = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography color={"#ffffffde"}>
-						<div style={{ margin: "0 0 30px 0" }}>
-							Email the developer team and ask questions or request a feature!
-						</div>
-						<button onClick={sendEmail}>Send Email</button>
+						Email the developer team and ask questions or request a feature!
+
+						<br />
+
+						<button onClick={sendEmail} style={{ margin: "20px 0 0 0" }}>
+							Send Email
+						</button>
 					</Typography>
 				</AccordionDetails>
 			</Accordion>

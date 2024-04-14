@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faFolder, faGear, faQuestionCircle, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faFolder, faGear, faQuestionCircle, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage } from "@/data/selectors/navigation";
 import { setActivePage } from "@/data/actions/navigation";

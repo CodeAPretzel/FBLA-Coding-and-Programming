@@ -238,11 +238,98 @@ const ComponentsPage = () => {
 		}
 	};
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//   Do this because too lazy to make and manage arrary; sorry not sorry, will fix later (DRY incoming)   //
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	const [inputNameValue, setNameInputValue] = React.useState<string>('Name');
+	const [inputTypeValue, setTypeInputValue] = React.useState<string>('Type');
+	const [inputPhoneValue, setPhoneInputValue] = React.useState<string>('Phone Number');
+	const [inputEmailValue, setEmailInputValue] = React.useState<string>('Email');
+	const [inputAddressValue, setAddressInputValue] = React.useState<string>('Address');
+	const [inputResourcesValue, setResourcesInputValue] = React.useState<string>('Resources');
+	const [inputDateValue, setDateInputValue] = React.useState<string>('Date');
+	const [inputMembersValue, setMembersInputValue] = React.useState<string>('Members');
+
+	const [inputNameWidth, setNameInputWidth] = React.useState<number>(150);
+	const [inputTypeWidth, setTypeInputWidth] = React.useState<number>(150);
+	const [inputPhoneWidth, setPhoneInputWidth] = React.useState<number>(150);
+	const [inputEmailWidth, setEmailInputWidth] = React.useState<number>(150);
+	const [inputAddressWidth, setAddressInputWidth] = React.useState<number>(150);
+	const [inputResourcesWidth, setResourcesInputWidth] = React.useState<number>(150);
+	const [inputDateWidth, setDateInputWidth] = React.useState<number>(150);
+	const [inputMembersWidth, setMembersInputWidth] = React.useState<number>(150);
+
+	const handleNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setNameInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setNameInputWidth(newWidth);
+	};
+
+	const handleTypeInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setTypeInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setTypeInputWidth(newWidth);
+	};
+
+	const handlePhoneInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setPhoneInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setPhoneInputWidth(newWidth);
+	};
+
+	const handleEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setEmailInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setEmailInputWidth(newWidth);
+	};
+
+	const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setAddressInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setAddressInputWidth(newWidth);
+	};
+
+	const handleResourcesInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setResourcesInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setResourcesInputWidth(newWidth);
+	};
+
+	const handleDateInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setDateInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setDateInputWidth(newWidth);
+	};
+
+	const handleMembersInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setMembersInputValue(value);
+
+		const newWidth = (value.length + 1) * 8;
+		setMembersInputWidth(newWidth);
+	};
+
 	const columns: GridColDef[] = [
 		{
-			field: "field1",
+			field: "actions",
 			type: "actions",
 			headerName: "Actions",
+			disableExport: true,
 			width: 100,
 			getActions: ({ id }) => {
 				const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -285,122 +372,211 @@ const ComponentsPage = () => {
 			},
 		},
 		{
-			field: "field2",
+			field: "Column 1",
 			flex: 1,
+			headerName: inputNameValue,
 			cellClassName: "name-column--cell",
 			editable: true,
 			renderHeader: () => (
 				<div
-					contentEditable="true"
-					suppressContentEditableWarning
 					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
 				>
-					{'Name'}
+					<input
+						type="text"
+						value={inputNameValue}
+						onChange={handleNameInputChange}
+						style={{
+							width: `${inputNameWidth}px`,
+							height: "100%",
+							fontSize: "14px",
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}}
+					/>
 				</div>
 			),
 		},
 		{
-			field: "field3",
+			field: "Column 2",
+			headerName: inputTypeValue,
+			editable: true,
+			flex: 1,
+			renderHeader: () => (
+				<div
+					onKeyDown={(event) => handleKeyDown(event)}
+				>
+					<input
+						type="text"
+						value={inputTypeValue}
+						onChange={handleTypeInputChange}
+						style={{
+							width: `${inputTypeWidth}px`,
+							height: "100%",
+							fontSize: "14px",
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}}
+					/>
+				</div>
+			),
+		},
+		{
+			field: "Column 3",
+			flex: 1,
+			headerName: inputPhoneValue,
 			editable: true,
 			renderHeader: () => (
 				<div
-					contentEditable="true"
-					suppressContentEditableWarning
 					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
 				>
-					{'Type'}
+					<input
+						type="text"
+						value={inputPhoneValue}
+						onChange={handlePhoneInputChange}
+						style={{
+							width: `${inputPhoneWidth}px`,
+							height: "100%",
+							fontSize: "14px",
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}}
+					/>
 				</div>
 			),
 		},
 		{
-			field: "phone",
+			field: "Column 4",
 			flex: 1,
 			editable: true,
+			headerName: inputEmailValue,
 			renderHeader: () => (
 				<div
-					contentEditable="true"
-					suppressContentEditableWarning
 					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
 				>
-					{'Phone Number'}
+					<input 
+						type="text"
+						value={inputEmailValue}
+   	 			        onChange={handleEmailInputChange}
+						style={{ 
+							width: `${inputEmailWidth}px`, 
+							height: "100%", 
+							fontSize: "14px", 
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}} 
+					/>
 				</div>
 			),
 		},
 		{
-			field: "field4",
+			field: "Column 5",
 			flex: 1,
 			editable: true,
+			headerName: inputAddressValue,
 			renderHeader: () => (
 				<div
-					contentEditable="true"
-					suppressContentEditableWarning
 					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
 				>
-					{'Email'}
+					<input 
+						type="text"
+						value={inputAddressValue}
+   	 			        onChange={handleAddressInputChange}
+						style={{ 
+							width: `${inputAddressWidth}px`, 
+							height: "100%", 
+							fontSize: "14px", 
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}} 
+					/>
 				</div>
 			),
 		},
 		{
-			field: "field5",
+			field: "Column 6",
 			flex: 1,
 			editable: true,
+			headerName: inputResourcesValue,
 			renderHeader: () => (
 				<div
-					contentEditable="true"
-					suppressContentEditableWarning
 					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
 				>
-					{'Address'}
+					<input 
+						type="text"
+						value={inputResourcesValue}
+   	 			        onChange={handleResourcesInputChange}
+						style={{ 
+							width: `${inputResourcesWidth}px`, 
+							height: "100%", 
+							fontSize: "14px", 
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}} 
+					/>
 				</div>
 			),
 		},
 		{
-			field: "field6",
+			field: "Column 7",
 			flex: 1,
 			editable: true,
+			headerName: inputDateValue,
 			renderHeader: () => (
 				<div
-					contentEditable="true"
-					suppressContentEditableWarning
 					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
 				>
-					{'Resources'}
+					<input 
+						type="text"
+						value={inputDateValue}
+   	 			        onChange={handleDateInputChange}
+						style={{ 
+							width: `${inputDateWidth}px`, 
+							height: "100%", 
+							fontSize: "14px", 
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}} 
+					/>
 				</div>
 			),
 		},
 		{
-			field: "field7",
+			field: "Column 8",
 			flex: 1,
 			editable: true,
+			headerName: inputMembersValue,
 			renderHeader: () => (
 				<div
-					contentEditable="true"
-					suppressContentEditableWarning
 					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
 				>
-					{'Date'}
-				</div>
-			),
-		},
-		{
-			field: "field8",
-			flex: 1,
-			editable: true,
-			renderHeader: () => (
-				<div
-					contentEditable="true"
-					suppressContentEditableWarning
-					onKeyDown={(event) => handleKeyDown(event)}
-					style={{ minWidth: '20px', minHeight: '100%' }}
-				>
-					{'Members'}
+					<input 
+						type="text"
+						value={inputMembersValue}
+   	 			        onChange={handleMembersInputChange}
+						style={{ 
+							width: `${inputMembersWidth}px`, 
+							height: "100%", 
+							fontSize: "14px", 
+							padding: "2px",
+							boxSizing: "border-box",
+							border: "none",
+							background: "transparent"
+						}} 
+					/>
 				</div>
 			),
 		},
