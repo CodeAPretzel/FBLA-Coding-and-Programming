@@ -1,21 +1,13 @@
-/* 
-
-Changes to make:
-4. Allow the user to export .csv to server.
-
-*/
-
 /////////////////
 //   Imports   //
 /////////////////
 
 import * as React from 'react';
-import axios from 'axios';
 import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import Header from "./objects/header";
+import Header from "../object-files/header";
 import SaveIcon from '@mui/icons-material/Save';
 import { Box, Button, ButtonProps, colors, createSvgIcon } from "@mui/material";
 import { MockData } from "./objects/data-file"
@@ -109,13 +101,7 @@ function CustomToolbar(props: EditToolbarProps) {
 				{...exportButtonBaseProps}
 				onClick={() => handleExport({ getRowsToExport: getRowsFromCurrentPage })}
 			>
-				Export locally
-			</Button>
-			<Button
-				{...exportButtonBaseProps}
-				//onClick={{}}
-			>
-				Export to server
+				Export
 			</Button>
 		</GridToolbarContainer>
 	);
@@ -429,7 +415,6 @@ const ComponentsPage = () => {
 				sx={{
 					"& .MuiDataGrid-root": {
 						border: "none",
-						borderColor: "red"
 					},
 					"& .MuiToolbar-root": {
 						color: '#ffffffde',
@@ -473,9 +458,6 @@ const ComponentsPage = () => {
 					"& .MuiDataGrid-root .Mui-selected": {
 						backgroundColor: "#282828"
 					},
-					"& .MuiDataGrid-row .MuiDataGrid-row--editable . MuiDataGrid-row--editing": {
-						backgroundColor: "red"
-					}
 				}}
 			>
 				<DataGrid

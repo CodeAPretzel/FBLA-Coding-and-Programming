@@ -1,3 +1,5 @@
+import Header from "components/main-side-nav-pages/object-files/header";
+
 const SettingsPage: React.FC = () => {
   return (
     <div>
