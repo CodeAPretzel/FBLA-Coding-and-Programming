@@ -72,7 +72,7 @@ const HelpPage: React.FC = () => {
 
 						<br />
 
-						<button onClick={() => openWebsite('https://www.example.com')} style={{ margin: "20px 0 0 0" }}>
+						<button onClick={() => openWebsite('https://github.com/CodeAPretzel/FBLA-Coding-and-Programming')} style={{ margin: "20px 0 0 0" }}>
 							Go to Documentation
 						</button>
 					</Typography>
