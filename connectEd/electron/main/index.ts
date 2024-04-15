@@ -4,6 +4,10 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { update } from './update'
 import { template } from './template'
+import { exec } from "child_process"
+
+let restAPIProcess
+let connectEdProcess
 
 globalThis.__filename = fileURLToPath(import.meta.url)
 globalThis.__dirname = dirname(__filename)
@@ -64,6 +68,10 @@ async function createWindow() {
 		win.loadFile(indexHtml)
 	}
 
+	startConnectEd(() => {
+		startRESTAPI();
+	});
+
 	// Test actively push message to the Electron-Renderer
 	win.webContents.on('did-finish-load', () => {
 		win?.webContents.send('main-process-message', new Date().toLocaleString())
@@ -79,17 +87,29 @@ async function createWindow() {
 	update(win)
 
 	// Maximize window
-	win.maximize();
+	win.maximize()
 
 	// Create custom menu bar
 	Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+}
+
+function startRESTAPI() {
+	restAPIProcess = exec('npm start', { cwd: '../REST-API' })
+}
+
+function startConnectEd(callback) {
+	connectEdProcess = exec('npm run dev', { cwd: 'connectEd' }, callback)
 }
 
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
 	win = null
-	if (process.platform !== 'darwin') app.quit()
+	if (process.platform !== 'darwin') {
+		app.quit()
+		restAPIProcess.kill()
+		connectEdProcess.kill()
+	}
 })
 
 app.on('second-instance', () => {

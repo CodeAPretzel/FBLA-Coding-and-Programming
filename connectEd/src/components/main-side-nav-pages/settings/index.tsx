@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 import Header from "components/main-side-nav-pages/object-files/header";
-import "components/main-side-nav-pages/help/help.less";
+import "components/main-side-nav-pages/settings/settings.less";
 
 interface NotificationProps {
 	message: string;
@@ -57,12 +57,12 @@ const SettingsPage: React.FC = () => {
 		<Box
 			m="20px 895px 0 40px"
 		>
-			<Header title={"Settings"} subtitle={"Change Username, Password, or Export Data from Server"} editable={false} />
+			<Header title={"Settings"} subtitle={"Change Username, Password, or Import Data from Server"} editable={false} />
 
 			<div className="setting-container">
 				{notification && <Notification message={notification.message} type={notification.type} onClose={closeNotification} />}
 
-				<div style={{ margin: "0px 0 0 0" }}>
+				<div>
 					<h3>Change Username</h3>
 					<input
 						type="text"
@@ -70,7 +70,7 @@ const SettingsPage: React.FC = () => {
 						onChange={(e) => setUsername(e.target.value)}
 						placeholder="Enter New Username"
 					/>
-					<button className="submit-buttons" onClick={handleChangeUsername}>Submit</button>
+					<button onClick={handleChangeUsername}>Submit</button>
 				</div>
 
 				<div style={{ margin: "60px 0 0 0" }}>
@@ -81,7 +81,7 @@ const SettingsPage: React.FC = () => {
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder="Enter New Password"
 					/>
-					<button className="submit-buttons" onClick={handleChangePassword}>Submit</button>
+					<button onClick={handleChangePassword}>Submit</button>
 				</div>
 
 				<div>

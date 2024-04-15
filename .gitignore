@@ -1,2 +1,4 @@
 # Ignore Documentation Folder
 Documentation/
+node_modules/**
+package-lock.json
